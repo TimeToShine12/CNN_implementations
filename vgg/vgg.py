@@ -48,6 +48,8 @@ class VGGNet(nn.Module):
 
         return nn.Sequential(*layers)
 
+
+# check -> output should be [1, 1000]
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 model = VGGNet(in_channels=3, num_classes=1000).to(device)
 x = torch.randn(1, 3, 224, 224)
