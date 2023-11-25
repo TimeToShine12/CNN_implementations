@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 
+
 class LeNet(nn.Module):
     def __init__(self, in_channels=1):
         super(LeNet, self).__init__()
@@ -14,21 +15,18 @@ class LeNet(nn.Module):
         self.linear2 = nn.Linear(in_features=84, out_features=10)
 
     def forward(self, x):
-        x = self.conv1(x)
-        x = self.relu(x)
+        x = self.relu(self.conv1(x))
         x = self.avg_pool(x)
-        x = self.conv2(x)
-        x = self.relu(x)
+        x = self.relu(self.conv2(x))
         x = self.avg_pool(x)
-        x = self.conv3(x)
-        x = self.relu(x)
+        x = self.relu(self.conv3(x))
         x = nn.Flatten()(x)
-        x = self.linear1(x)
-        x = self.relu(x)
+        x = self.relu(self.linear1(x))
         x = self.linear2(x)
         return x
 
 
+# output -> [64, 10]
 x = torch.randn(64, 1, 32, 32)
 model = LeNet()
 print(model(x).shape)
